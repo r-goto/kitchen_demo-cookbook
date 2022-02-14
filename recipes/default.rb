@@ -4,7 +4,12 @@
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
 
-include_recipe 'kitchen_demo_cookbook::demo'
-include_profile "kitchen_demo_cookbook::*"
-include_input "kitchen_demo_cookbook::*"
+if platform?('windows')
+  include_recipe 'kitchen_demo_cookbook::windows_demo'
+  include_profile 'kitchen_demo_cookbook::windows_validation_tests'
+else
+  include_recipe 'kitchen_demo_cookbook::linux_demo'
+  include_profile 'kitchen_demo_cookbook::linux_validation_tests'
+end
+# include_input 'kitchen_demo_cookbook::*'
 # include_waiver "node_setup::*"

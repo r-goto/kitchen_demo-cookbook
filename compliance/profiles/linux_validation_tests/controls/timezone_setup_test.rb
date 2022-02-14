@@ -3,15 +3,15 @@
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
 
-title "タイムゾーン確認"
+title 'タイムゾーン確認'
 
-chef_node = attribute('chef_node', description: 'Chef Node')
+chef_node = input('chef_node', description: 'Chef Node')
 environment = "#{chef_node['environment']}"
 
 case environment
 when 'production'
   describe bash('timedatectl status | grep Tokyo') do
-    its('stdout') { should_not include 'Time zone: Asia/Tokyo' }
+    its('stdout') { should include 'Time zone: Asia/Tokyo' }
     its('stderr') { should eq '' }
     its('exit_status') { should eq 0 }
   end

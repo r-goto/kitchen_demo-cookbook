@@ -48,12 +48,13 @@
 ---
 driver:
   name: vagrant
-  box_check_update: false
-  box_auto_update: false
+  use_cached_chef_client: true
+  ssh:
+    insert_key: false 
+    private_key_path: '~/.vagrant.d/insecure_private_key'
   customize:
     memory: 4056
     cpuexecutioncap: 100
-  
 
 provisioner:
   name: chef_zero
@@ -64,10 +65,10 @@ platforms:
   - name: windows_2019
     driver:
       box: tas50/windows_2019
-  # - name: rockylinux-8.5
-  # - name: centos-7
-  # - name: ubuntu-21.10
-  # - name: amazonlinux-2
+  - name: centos-7
+  - name: ubuntu-21.10
+  - name: amazonlinux-2
+  - name: almalinux-8.5
 
 suites:
   - name: default

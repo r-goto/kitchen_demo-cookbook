@@ -1,4 +1,4 @@
-name: integration_test.yml
+name: linux_integration_test.yml
 title: InSpec Profile
 maintainer: The Authors
 copyright: The Authors
