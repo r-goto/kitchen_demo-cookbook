@@ -12,5 +12,5 @@ chef_node = input('chef_node', description: 'Chef Node')
 if chef_node['cookbooks']['kitchen_demo_cookbook']['version'] != cookboko_version
   raise Exception, "Cookbook バージョンが正常ではありません。Converged Version: #{chef_node['cookbooks']['kitchen_demo_cookbook']['version']}"
 else
-  p "Cookbook Version: v#{chef_node['cookbooks']['kitchen_demo_cookbook']['version']} Converged Successfully"
+  puts "\n##############################################\nCookbook Version: v#{chef_node['cookbooks']['kitchen_demo_cookbook']['version']} Converged Successfully\n##############################################"
 end

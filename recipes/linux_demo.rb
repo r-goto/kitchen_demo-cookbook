@@ -4,9 +4,28 @@
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
 
-package 'chrony'
-service 'chronyd' do
-  action [ :start, :enable ]
+if !platform?('ubuntu')
+  %w(samba chrony openssh).each do |pkg|
+    package pkg
+  end
+else
+  %w(samba chrony openssh-server).each do |pkg|
+    package pkg
+  end
+end
+
+if !platform?('ubuntu')
+  %w(smb nmb chronyd).each do |svc|
+    service svc do
+      action [ :start, :enable ]
+    end
+  end
+else
+  %w(smbd nmbd chronyd).each do |svc|
+    service svc do
+      action [ :start, :enable ]
+    end
+  end
 end
 
 case node['environment']

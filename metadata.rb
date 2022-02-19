@@ -1,6 +1,6 @@
 name 'kitchen_demo_cookbook'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'The Authors of The Authors'
+maintainer_email 'your@apple.com'
 license 'All Rights Reserved'
 description 'Installs/Configures kitchen_demo_cookbook'
 version '1.0.0'

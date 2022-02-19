@@ -1,81 +1,84 @@
-# ---
-# driver:  
-#   name: dokken
-#   chef_version: 17.9.46
-#   privileged: true
-
-# transport:
-#   name: dokken
-
-# provisioner:
-#   name: dokken
-#   install_strategy: always
-#   chef_license: accept-no-persist
-
-# verifier:
-#   name: inspec
-
-# suites:
-#   - name: default
-#     run_list:
-#       - recipe[kitchen_cookbook::default]    
-#     verifier:
-#       inspec_tests:
-#         - test/integration/default
-#     attributes: { 
-#       environment: "staging",
-#       node_setup:  { timezone: 'Europe/Dublin' }
-#      }
-
-# platforms:
-# - name: centos-strean-8
-#   driver:
-#     image: dokken/centos-stream-8
-#     pid_one_command: /usr/lib/systemd/systemd
-# - name: rockylinux-8
-#   driver:
-#     image: dokken/rockylinux-8
-#     pid_one_command: /usr/lib/systemd/systemd
-# - name: ubuntu-22.04
-#   driver:
-#     image: dokken/ubuntu-22.04
-#     pid_one_command: /bin/systemd
-# - name: amazonlinux-2022
-#   driver:
-#     image: dokken/amazonlinux-2022
-#     pid_one_command: /usr/lib/systemd/systemd
-
 ---
-driver:
-  name: vagrant
-  use_cached_chef_client: true
-  ssh:
-    insert_key: false 
-    private_key_path: '~/.vagrant.d/insecure_private_key'
-  customize:
-    memory: 4056
-    cpuexecutioncap: 100
+driver:  
+  name: dokken
+  chef_version: 17.9.52
+  privileged: true
+
+transport:
+  name: dokken
 
 provisioner:
-  name: chef_zero
-  product_name: chef
-  product_version: 17.9.46
+  name: dokken
+  install_strategy: always
+  chef_license: accept-no-persist
 
-platforms:
-  - name: windows_2019
-    driver:
-      box: tas50/windows_2019
-  - name: centos-7
-  - name: ubuntu-21.10
-  - name: amazonlinux-2
-  - name: almalinux-8.5
+verifier:
+  name: inspec
 
 suites:
   - name: default
+    run_list:
+      - recipe[kitchen_cookbook::default]    
     verifier:
       inspec_tests:
         - test/integration/default
     attributes: { 
-      environment: "production",
+      environment: "staging",
       chef_client_cron: { minute: "0,15" }
      }
+
+platforms:
+- name: centos-strean-8
+  driver:
+    image: dokken/centos-stream-8
+    pid_one_command: /usr/lib/systemd/systemd
+- name: rockylinux-8
+  driver:
+    image: dokken/rockylinux-8
+    pid_one_command: /usr/lib/systemd/systemd
+- name: ubuntu-22.04
+  driver:
+    image: dokken/ubuntu-22.04
+    pid_one_command: /bin/systemd
+- name: amazonlinux-2022
+  driver:
+    image: dokken/amazonlinux-2022
+    pid_one_command: /usr/lib/systemd/systemd
+
+# ---
+# driver:
+#   name: vagrant
+#   use_cached_chef_client: true
+#   ssh:
+#     insert_key: false 
+#     private_key_path: '~/.vagrant.d/insecure_private_key'
+#   customize:
+#     memory: 4056
+#     cpuexecutioncap: 100
+
+# provisioner:
+#   name: chef_zero
+#   product_name: chef
+#   product_version: 17.9.52
+
+# verifier:
+#   name: inspec
+
+# platforms:
+#   - name: windows_2019
+#     driver:
+#       box: tas50/windows_2019
+#   - name: centos-7
+#   - name: ubuntu-21.10
+#   - name: amazonlinux-2
+#   - name: almalinux-8.5
+
+# suites:
+#   - name: default
+#     verifier:
+#       inspec_tests:
+#         - test/integration/default
+#     attributes: { 
+#       environment: "production",
+#       chef_client_cron: { minute: "0,15" }
+#      }
