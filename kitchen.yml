@@ -6,6 +6,7 @@ driver:
   instance_type: t3.xlarge
   security_group_ids: sg-0b110af304806fd92
   region: ap-northeast-3
+  skip_cost_warning: true
 
 transport:
   ssh_key: ~/.ssh/Private_keys/aws-r-goto_osaka_rsa.pem
@@ -25,17 +26,13 @@ platforms:
   - name: rhel-8
     driver:
       tags: { "Name": "RHEL-8-kitchen", "created_type": "Test Kitchen" ,"Owner": "r-goto"  }
-  # - name: windows-2019
-  #   driver:
-  #     image_id: ami-031ddc0930004badd
-  #     tags: { "Name": "Windows2019-kitchen", "created_type": "Test Kitchen" ,"Owner": "r-goto"  }
-  #     security_group_ids: sg-0b1c8da400c042fb7
-  #     # interface: public
-  #   transport:
-  #     username: administrator
-  #     password: 
-  #     # retryable_sleep: 600
-  #     # retryable_tries: 5
+  - name: windows-2019
+    driver:
+      image_id: ami-00de74fc45f9fdc82
+      tags: { "Name": "Windows2019-kitchen", "created_type": "Test Kitchen" ,"Owner": "r-goto"  }
+    transport:
+      username: Administrator
+      password: tAN38G&NhWcgwHkF7PxRHg%;lGYE$NY;
 
 suites:
   - name: default
