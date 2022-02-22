@@ -24,15 +24,19 @@ platforms:
   - name: amazon2-2022
     driver:
       tags: { "Name": "Amzn-2022-kitchen" }
+
   - name: rhel-7
     driver:
       tags: { "Name": "RHEL-7-kitchen" }
+  
   - name: rhel-8
     driver:
       tags: { "Name": "RHEL-8-kitchen" }
+  
   - name: ubuntu-20.04
     driver:
       tags: { "Name": "Ubuntu-20-kitchen" }
+  
   - name: windows-2019
     driver:
       image_id: ami-00de74fc45f9fdc82
@@ -40,6 +44,7 @@ platforms:
     transport:
       username: Administrator
       password: <%= ENV['AWS_WIN_2019_PW'] %>
+  
   - name: windows-2022
     driver:
       image_id: ami-04fbbb774559941ad
