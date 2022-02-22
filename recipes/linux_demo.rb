@@ -10,6 +10,7 @@ if !platform?('ubuntu')
   end
 else
   %w(samba chrony openssh-server).each do |pkg|
+    apt_update
     package pkg
   end
 end
