@@ -3,7 +3,7 @@ driver:
   name: ec2
   some_config: true
   aws_ssh_key_id: r-goto_osaka_rsa
-  instance_type: t3.xlarge
+  instance_type: c5d.2xlarge
   security_group_ids: sg-0b110af304806fd92
   region: ap-northeast-3
   skip_cost_warning: true
@@ -14,25 +14,39 @@ transport:
 provisioner:
   name: chef_zero
   product_name: chef
+  install_strategy: always
   product_version: 17.9.52
 
 verifier:
   name: inspec
 
 platforms:
+  - name: amazon2-2022
+    driver:
+      tags: { "Name": "Amzn-2022-kitchen" }
   - name: rhel-7
     driver:
-      tags: { "Name": "RHEL-7-kitchen", "created_type": "Test Kitchen" ,"Owner": "r-goto"  }
+      tags: { "Name": "RHEL-7-kitchen" }
   - name: rhel-8
     driver:
-      tags: { "Name": "RHEL-8-kitchen", "created_type": "Test Kitchen" ,"Owner": "r-goto"  }
+      tags: { "Name": "RHEL-8-kitchen" }
+  - name: ubuntu-20.04
+    driver:
+      tags: { "Name": "Ubuntu-20-kitchen" }
   - name: windows-2019
     driver:
       image_id: ami-00de74fc45f9fdc82
-      tags: { "Name": "Windows2019-kitchen", "created_type": "Test Kitchen" ,"Owner": "r-goto"  }
+      tags: { "Name": "Windows2019-kitchen" }
     transport:
       username: Administrator
-      password: tAN38G&NhWcgwHkF7PxRHg%;lGYE$NY;
+      password: <%= ENV['AWS_WIN_2019_PW'] %>
+  - name: windows-2022
+    driver:
+      image_id: ami-04fbbb774559941ad
+      tags: { "Name": "Windows2022-kitchen" }
+    transport:
+      username: Administrator
+      password: <%= ENV['AWS_WIN_2022_PW'] %>
 
 suites:
   - name: default
