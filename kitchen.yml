@@ -1,49 +1,109 @@
 ---
-driver:  
-  name: dokken
-  chef_version: 17.9.52
-  privileged: true
+driver:
+  name: ec2
+  some_config: true
+  aws_ssh_key_id: r-goto_osaka_rsa
+  instance_type: c5d.2xlarge
+  security_group_ids: sg-0b110af304806fd92
+  region: ap-northeast-3
+  skip_cost_warning: true
 
 transport:
-  name: dokken
+  ssh_key: ~/.ssh/Private_keys/aws-r-goto_osaka_rsa.pem
 
 provisioner:
-  name: dokken
+  name: chef_zero
+  product_name: chef
   install_strategy: always
-  chef_license: accept-no-persist
+  product_version: 17.9.52
 
 verifier:
   name: inspec
 
+platforms:
+  - name: amazon2-2022
+    driver:
+      tags: { "Name": "Amzn-2022-kitchen" }
+  - name: rhel-7
+    driver:
+      tags: { "Name": "RHEL-7-kitchen" }
+  - name: rhel-8
+    driver:
+      tags: { "Name": "RHEL-8-kitchen" }
+  - name: ubuntu-20.04
+    driver:
+      tags: { "Name": "Ubuntu-20-kitchen" }
+  - name: windows-2019
+    driver:
+      image_id: ami-00de74fc45f9fdc82
+      tags: { "Name": "Windows2019-kitchen" }
+    transport:
+      username: Administrator
+      password: <%= ENV['AWS_WIN_2019_PW'] %>
+  - name: windows-2022
+    driver:
+      image_id: ami-04fbbb774559941ad
+      tags: { "Name": "Windows2022-kitchen" }
+    transport:
+      username: Administrator
+      password: <%= ENV['AWS_WIN_2022_PW'] %>
+
 suites:
   - name: default
-    run_list:
-      - recipe[kitchen_cookbook::default]    
     verifier:
       inspec_tests:
         - test/integration/default
     attributes: { 
-      environment: "staging",
+      environment: "production",
       chef_client_cron: { minute: "0,15" }
      }
 
-platforms:
-- name: centos-strean-8
-  driver:
-    image: dokken/centos-stream-8
-    pid_one_command: /usr/lib/systemd/systemd
-- name: rockylinux-8
-  driver:
-    image: dokken/rockylinux-8
-    pid_one_command: /usr/lib/systemd/systemd
-- name: ubuntu-22.04
-  driver:
-    image: dokken/ubuntu-22.04
-    pid_one_command: /bin/systemd
-- name: amazonlinux-2022
-  driver:
-    image: dokken/amazonlinux-2022
-    pid_one_command: /usr/lib/systemd/systemd
+# ---
+# driver:  
+#   name: dokken
+#   chef_version: 17.9.52
+#   privileged: true
+
+# transport:
+#   name: dokken
+
+# provisioner:
+#   name: dokken
+#   install_strategy: always
+#   chef_license: accept-no-persist
+
+# verifier:
+#   name: inspec
+
+# suites:
+#   - name: default
+#     run_list:
+#       - recipe[kitchen_cookbook::default]    
+#     verifier:
+#       inspec_tests:
+#         - test/integration/default
+#     attributes: { 
+#       environment: "staging",
+#       chef_client_cron: { minute: "0,15" }
+#      }
+
+# platforms:
+# - name: centos-strean-8
+#   driver:
+#     image: dokken/centos-stream-8
+#     pid_one_command: /usr/lib/systemd/systemd
+# - name: rockylinux-8
+#   driver:
+#     image: dokken/rockylinux-8
+#     pid_one_command: /usr/lib/systemd/systemd
+# - name: ubuntu-22.04
+#   driver:
+#     image: dokken/ubuntu-22.04
+#     pid_one_command: /bin/systemd
+# - name: amazonlinux-2022
+#   driver:
+#     image: dokken/amazonlinux-2022
+#     pid_one_command: /usr/lib/systemd/systemd
 
 # ---
 # driver:
