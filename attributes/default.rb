@@ -1,2 +1,2 @@
-# default['audit']['reporter'] = 'audit-enforcer'
-default['chef_client_cron']['minute'] = nil
+default['audit']['reporter'] = nil
+default['chef_client_cron']['minute'] = '0,15'

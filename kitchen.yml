@@ -14,7 +14,6 @@ transport:
 provisioner:
   name: chef_zero
   product_name: chef
-  install_strategy: always
   product_version: 17.9.52
 
 verifier:
@@ -37,21 +36,21 @@ platforms:
     driver:
       tags: { "Name": "Ubuntu-20-kitchen" }
   
-  - name: windows-2019
-    driver:
-      image_id: ami-00de74fc45f9fdc82
-      tags: { "Name": "Windows2019-kitchen" }
-    transport:
-      username: Administrator
-      password: <%= ENV['AWS_WIN_2019_PW'] %>
+  # - name: windows-2019
+  #   driver:
+  #     image_id: ami-00de74fc45f9fdc82
+  #     tags: { "Name": "Windows2019-kitchen" }
+  #   transport:
+  #     username: Administrator
+  #     password: <%= ENV['AWS_WIN_2019_PW'] %>
   
-  - name: windows-2022
-    driver:
-      image_id: ami-04fbbb774559941ad
-      tags: { "Name": "Windows2022-kitchen" }
-    transport:
-      username: Administrator
-      password: <%= ENV['AWS_WIN_2022_PW'] %>
+  # - name: windows-2022
+  #   driver:
+  #     image_id: ami-04fbbb774559941ad
+  #     tags: { "Name": "Windows2022-kitchen" }
+  #   transport:
+  #     username: Administrator
+  #     password: <%= ENV['AWS_WIN_2022_PW'] %>
 
 suites:
   - name: default
@@ -59,8 +58,8 @@ suites:
       inspec_tests:
         - test/integration/default
     attributes: { 
-      environment: "production",
-      chef_client_cron: { minute: "0,15" }
+      audit: { reporter: 'audit-enforcer' },
+      environment: "production"
      }
 
 # ---
