@@ -7,7 +7,7 @@ chef_node = input('chef_node', description: 'Chef Node')
 
 control 'Pakage Setup' do
   title 'パッケージセットアップ確認テスト'
-  if chef_node['platform'] == "ubuntu"
+  if chef_node['platform'] == 'ubuntu'
     %w(samba chrony openssh-server).each do |pkg|
       describe package(pkg) do
         it { should be_installed }
@@ -21,9 +21,9 @@ control 'Pakage Setup' do
     end
   else
     %w(samba chrony openssh).each do |pkg|
-    describe package(pkg) do
-      it { should be_installed }
-    end
+      describe package(pkg) do
+        it { should be_installed }
+      end
     end
     %w(smb nmb chronyd).each do |svc|
       describe service(svc) do

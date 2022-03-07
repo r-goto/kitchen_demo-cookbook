@@ -3,14 +3,15 @@
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
 
-cookboko_version = '1.0.0'
+# $cookboko_version = '1.0.0'
+
+cookbook_version = '1.0.0'
+chef_node = input('chef_node', description: 'Chef Node')
 
 title '適用されたCookbookバージョンの確認'
 
-chef_node = input('chef_node', description: 'Chef Node')
-
-if chef_node['cookbooks']['kitchen_demo_cookbook']['version'] != cookboko_version
+if chef_node['cookbooks']['kitchen_demo_cookbook']['version'] != cookbook_version
   raise Exception, "Cookbook バージョンが正常ではありません。Converged Version: #{chef_node['cookbooks']['kitchen_demo_cookbook']['version']}"
 else
-  puts "\n##############################################\nCookbook Version: v#{chef_node['cookbooks']['kitchen_demo_cookbook']['version']} Converged Successfully\n##############################################"
+  puts "\n##############################################\nConverged Cookbook バージョン: v#{chef_node['cookbooks']['kitchen_demo_cookbook']['version']}\n##############################################"
 end
