@@ -4,6 +4,10 @@
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
 
+# デモシナリオ：手動のバージョンアップは不可で、
+# レシピのみでバージョンアップを行うレシピ
+
+execute 'yum update -y --skip-broken'
 package 'yum-plugin-versionlock'
 
 # インストールしていないパッケージに :unlock アクション
@@ -13,6 +17,7 @@ end
 
 # 手動の`yum update`ではバージョン固定され、レシピでバージョンを上げる。(version peculiar to amazonlinux2)
 yum_package 'samba' do
+  # action [ :install ]
   action [ :install, :lock ]
   version '4.6.2'
   # version '4.10.16'
