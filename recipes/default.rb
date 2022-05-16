@@ -9,10 +9,11 @@ if platform?('windows')
   include_profile 'kitchen_demo_cookbook::windows_basic_tests'
 else
   ## Basic Demo
-  include_recipe 'kitchen_demo_cookbook::linux_demo'
-  include_profile 'kitchen_demo_cookbook::linux_basic_tests'
+  # include_recipe 'kitchen_demo_cookbook::linux_demo'
+  # include_profile 'kitchen_demo_cookbook::linux_basic_tests'
 
   ## package :lock use Rhel7
-  # include_recipe 'kitchen_demo_cookbook::package_lock'
-  # include_profile 'kitchen_demo_cookbook::linux_package_lock_tests'
+  execute 'yum update -y --skip-broken'
+  include_recipe 'kitchen_demo_cookbook::package_lock'
+  include_profile 'kitchen_demo_cookbook::linux_package_lock_tests'
 end

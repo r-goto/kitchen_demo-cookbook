@@ -6,12 +6,14 @@
 
 package 'yum-plugin-versionlock'
 
-yum_package 'firefox' do
+# インストールしていないパッケージに :unlock アクション
+yum_package 'samba' do
   action :unlock
 end
 
-yum_package 'firefox' do
+# 手動の`yum update`ではバージョン固定され、レシピでバージョンを上げる。(version peculiar to amazonlinux2)
+yum_package 'samba' do
   action [ :install, :lock ]
-  # version '78.5.0'
-  version '68.10.0'
+  version '4.6.2'
+  # version '4.10.16'
 end

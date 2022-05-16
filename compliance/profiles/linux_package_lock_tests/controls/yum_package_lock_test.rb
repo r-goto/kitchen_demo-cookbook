@@ -3,9 +3,15 @@
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
 
-control 'firefox package lock' do
-  title 'package version ロック 設定確認テスト'
-  describe bash('yum versionlock status | grep firefox') do
-    its('stdout') { should include 'firefox' }
+control 'samba package lock' do
+  title 'パッケージのバージョンがロックされているかテスト'
+
+  describe package('samba') do
+    it { should be_installed }
+    its('version') { should include '4.6.2' }
+  end
+
+  describe bash('yum versionlock list | grep samba') do
+    its('stdout') { should include 'samba' }
   end
 end
