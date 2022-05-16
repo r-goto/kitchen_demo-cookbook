@@ -4,8 +4,8 @@
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
 
-# デモシナリオ：手動のバージョンアップは不可で、
-# レシピのみでバージョンアップを行うレシピ
+# デモシナリオ：手動yum updateのバージョンアップは不可で、
+# レシピのみでバージョンアップを行うレシピを用意する。
 
 execute 'yum update -y --skip-broken'
 package 'yum-plugin-versionlock'
