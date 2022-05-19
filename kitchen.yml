@@ -24,9 +24,16 @@ suites:
      }
 
 platforms:
-  - name: amazon2-2022
+  # - name: amazon2-2022
+  #   driver:
+  #     tags: { "Name": "TestKitchen-Amzn-2022" }
+
+  - name: rockylinux-8
     driver:
-      tags: { "Name": "TestKitchen-Amzn-2022" }
+      tags: { "Name": "TestKitchen-RockyLinux-8" }
+      image_id: ami-01b33bd2d6f44c11b
+    transport:
+      username: rocky
 
   # - name: rhel-7
   #   driver:
